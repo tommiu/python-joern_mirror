@@ -2,7 +2,7 @@
 # Run sanity checks against test database
 
 import unittest
-from tests import *
+from phptests import *
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,0 +1,9 @@
+For the tests, I currently use the agavi repository (rev 06c53792ec0cf1d2511723505bb3493e93e31355)
+
+From PHPJoern:
+* clone https://github.com/agavi/agavi (or use get_test_repos.sh)
+* checkout rev 06c53792ec0cf1d2511723505bb3493e93e31355
+* parse the agavi repo
+* import it into Neo4J
+* start Neo4J
+* test away

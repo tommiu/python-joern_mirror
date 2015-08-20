@@ -5,7 +5,7 @@ from py2neo.packages.httpstream import http
 import os
 
 DEFAULT_GRAPHDB_URL = "http://localhost:7474/db/data/"
-DEFAULT_STEP_DIR = os.path.dirname(__file__) + '/joernsteps/'
+DEFAULT_STEP_DIR = os.path.dirname(__file__) + '/phpjoernsteps/'
 
 class JoernSteps:
 
@@ -37,7 +37,7 @@ class JoernSteps:
         """ Runs the specified gremlin query on the database. It is
         assumed that a connection to the database has been
         established. To allow the user-defined steps located in the
-        joernsteps directory to be used in the query, these step
+        phpjoernsteps directory to be used in the query, these step
         definitions are sent before the first query."""
         
         if not self.initCommandSent:
