@@ -6,7 +6,8 @@ class SyntaxTests(PythonJoernTests):
     def testAstNodes(self):
         """Searches all AST nodes from the first statement in agavi's
         version.php"""
-        query = """g.v(3).astNodes()"""
+        query = """g.v(3)
+                   .astNodes()"""
         result = self.j.runGremlinQuery(query)
         expect = [Node(childnum=2,index=7,lineno=30,type="AST_ARG_LIST"),
                   Node(childnum=1,code="set",index=6,lineno=30,type="string"),
@@ -20,7 +21,8 @@ class SyntaxTests(PythonJoernTests):
         
     def testParents(self):
         """Searches for all parent nodes of function declarations."""
-        query = """g.V(NODE_TYPE,TYPE_FUNC_DECL).parents()"""
+        query = """g.V(NODE_TYPE,TYPE_FUNC_DECL)
+                   .parents()"""
         result = self.j.runGremlinQuery(query)
         expect = [Node(childnum=0,index=68677,lineno=1,type="AST_STMT_LIST"),
                   Node(childnum=0,index=68677,lineno=1,type="AST_STMT_LIST"),
@@ -37,7 +39,8 @@ class SyntaxTests(PythonJoernTests):
 
     def testChildren(self):
         """Searches for all children nodes of the root node of agavi's version.php"""
-        query = """g.V(NODE_TYPE,TYPE_FILE).has(NODE_NAME,"version.php").out().children()"""
+        query = """g.V(NODE_TYPE,TYPE_FILE).has(NODE_NAME,"version.php").out(FILE_EDGE)
+                   .children()"""
         result = self.j.runGremlinQuery(query)
         expect = [Node(childnum=10,index=143,lineno=1,type="NULL"),
                   Node(childnum=9,index=120,lineno=54,type="AST_STATIC_CALL"),
@@ -56,7 +59,8 @@ class SyntaxTests(PythonJoernTests):
     def testIthChildren(self):
         """Searches for all third children of all function nodes. The third
         children are the statement lists."""
-        query = """g.V(NODE_TYPE,TYPE_FUNC_DECL).ithChildren(2)"""
+        query = """g.V(NODE_TYPE,TYPE_FUNC_DECL)
+                   .ithChildren(2)"""
         result = self.j.runGremlinQuery(query)
         expect = [Node(childnum=2,index=68936,lineno=76,type="AST_STMT_LIST"),
                   Node(childnum=2,index=69092,lineno=90,type="AST_STMT_LIST"),
@@ -75,7 +79,8 @@ class SyntaxTests(PythonJoernTests):
         """For all AST nodes from the first statement in agavi's version.php,
         searches the enclosing statement, which should thus be the
         first statement again in all cases."""
-        query = """g.v(3).astNodes().statements()"""
+        query = """g.v(3).astNodes()
+                   .statements()"""
         result = self.j.runGremlinQuery(query)
         expect = [Node(childnum=0,index=3,lineno=30,type="AST_STATIC_CALL"),
                   Node(childnum=0,index=3,lineno=30,type="AST_STATIC_CALL"),
@@ -90,7 +95,8 @@ class SyntaxTests(PythonJoernTests):
     def testNumChildren(self):
         """Queries the number of children of the first statement in agavi's
         version.php"""
-        query = """g.v(3).numChildren()"""
+        query = """g.v(3)
+                   .numChildren()"""
         result = self.j.runGremlinQuery(query)
         expect = [3]
         self.assertEquals(result, expect)
