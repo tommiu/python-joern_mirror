@@ -5,7 +5,7 @@ class MatchTests(PythonJoernTests):
 
     def testMatch(self):
         """Searches all nodes of type AST_STATIC_CALL in agavi/src/version.php"""
-        query = """g.V(NODE_TYPE,TYPE_FILE).has(NODE_NAME,"version.php").out(FILE_EDGE)
+        query = """g.V().getAstOfFile("version.php")
                    .match{ it.type == TYPE_STATIC_CALL }"""
         result = self.j.runGremlinQuery(query)
         expect = [Node(childnum=9,index=120,lineno=54,type="AST_STATIC_CALL"),
@@ -38,7 +38,7 @@ class MatchTests(PythonJoernTests):
         twice; the first is within a static call, and the second is
         within *two* nested static calls, so we expect to get three
         nodes as a result here.)"""
-        query = """g.V(NODE_TYPE,TYPE_FILE).has(NODE_NAME,"version.php").out(FILE_EDGE).match{ it.code == "agavi.major_version" }
+        query = """g.V().getAstOfFile("version.php").match{ it.code == "agavi.major_version" }
                    .matchParents{ it.type == TYPE_STATIC_CALL }"""
         result = self.j.runGremlinQuery(query)
         expect = [Node(childnum=1,index=10,lineno=32,type="AST_STATIC_CALL"),
@@ -51,7 +51,7 @@ class MatchTests(PythonJoernTests):
         """Searches all call expressions in AgaviContext.class.php, filters
         those where the name of the called function starts with 'get',
         and returns all the first arguments to these calls."""
-        query = """g.V(NODE_TYPE,TYPE_FILE).has(NODE_NAME,"AgaviContext.class.php").out(FILE_EDGE)
+        query = """g.V().getAstOfFile("AgaviContext.class.php")
                    .arg("get",0)"""
         result = self.j.runGremlinQuery(query)
         expect = [Node(childnum=0,index=20161,lineno=198,type="AST_VAR"),
@@ -66,7 +66,7 @@ class MatchTests(PythonJoernTests):
 
     def testParam(self):
         """Searches for all parameter nodes in AgaviAction.class.php whose name matches /n.*/"""
-        query = """g.V("type","File").has("name","AgaviAction.class.php").out(FILE_EDGE)
+        query = """g.V().getAstOfFile("AgaviAction.class.php")
                    .param("n.*")"""
         result = self.j.runGremlinQuery(query)
         expect = [Node(childnum=0,index=75543,lineno=297,type="AST_PARAM"),

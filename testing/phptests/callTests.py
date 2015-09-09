@@ -6,7 +6,7 @@ class CallTests(PythonJoernTests):
     def testCallToArguments(self):
         """Searches all call expressions in test-repos/agavi/src/core/AgaviContext.class.php
         and retrieves their arguments"""
-        query = """g.V("type","File").has("name","AgaviContext.class.php").out(FILE_EDGE).match{ isCallExpression(it) }
+        query = """g.V().getAstOfFile("AgaviContext.class.php").match{ isCallExpression(it) }
                    .callToArguments()"""
         result = self.j.runGremlinQuery(query)
         expect = [Node(childnum=0,index=20443,lineno=326,type="AST_ARRAY"),
@@ -54,7 +54,7 @@ class CallTests(PythonJoernTests):
         """Searches all call expressions in
         test-repos/agavi/src/core/AgaviContext.class.php and retrieves
         their third argument."""
-        query = """g.V("type","File").has("name","AgaviContext.class.php").out(FILE_EDGE).match{ isCallExpression(it) }
+        query = """g.V().getAstOfFile("AgaviContext.class.php").match{ isCallExpression(it) }
                    .ithArguments(2)"""
         result = self.j.runGremlinQuery(query)
         expect = [Node(childnum=2,index=20516,lineno=362,type="AST_VAR")]
@@ -66,7 +66,7 @@ class CallTests(PythonJoernTests):
         their arguments, traverses back to the call expressions and
         deduplicates. The result is the set of all call expressions
         that have at least one argument."""
-        query = """g.V("type","File").has("name","AgaviContext.class.php").out(FILE_EDGE).match{ isCallExpression(it) }.callToArguments()
+        query = """g.V().getAstOfFile("AgaviContext.class.php").match{ isCallExpression(it) }.callToArguments()
                    .argToCall().dedup()"""
         result = self.j.runGremlinQuery(query)
         expect = [Node(childnum=1,index=20439,lineno=326,type="AST_CALL"),
@@ -105,7 +105,7 @@ class CallTests(PythonJoernTests):
         test-repos/agavi/src/core/AgaviContext.class.php and retrieves
         their enclosing assign statements (if they are enclosed in
         assign statements.)"""
-        query = """g.V("type","File").has("name","AgaviContext.class.php").out(FILE_EDGE).match{ isCallExpression(it) }
+        query = """g.V().getAstOfFile("AgaviContext.class.php").match{ isCallExpression(it) }
                    .callToAssigns()"""
         result = self.j.runGremlinQuery(query)
         expect = [Node(childnum=1,index=20496,lineno=361,type="AST_ASSIGN"),
