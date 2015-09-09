@@ -22,6 +22,7 @@ Object.metaClass.TYPE_ARG_LIST = 'AST_ARG_LIST' // foo( $a1, $a2, $a3)
 Object.metaClass.TYPE_PARAM_LIST = 'AST_PARAM_LIST' // function foo( $p1, $p2, $p3) {}
 Object.metaClass.TYPE_PARAM = 'AST_PARAM' // $p1
 Object.metaClass.TYPE_ASSIGN = 'AST_ASSIGN' // $buzz = true
+Object.metaClass.TYPE_NAME = 'AST_NAME' // variable name
 // TODO and many more...
 
 Object.metaClass.TYPE_DIRECTORY = 'Directory'
