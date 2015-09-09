@@ -13,7 +13,7 @@ Object.metaClass.isAssignment = { it ->
    Traverse to left side of an assignment.
 */
 Gremlin.defineStep('lval', [Vertex,Pipe], {
-  _().filter{ isAssignment(it) }.children().filter{ it.childnum == 0 }
+  _().filter{ isAssignment(it) }.ithChildren(0)
 });
 
 
@@ -21,5 +21,5 @@ Gremlin.defineStep('lval', [Vertex,Pipe], {
    Traverse to right side of an assignment.
 */
 Gremlin.defineStep('rval', [Vertex,Pipe], {o->
-  _().filter{ isAssignment(it) }.children().filter{ it.childnum == 1 }
+  _().filter{ isAssignment(it) }.ithChildren(1)
 });
