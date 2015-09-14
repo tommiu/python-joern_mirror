@@ -46,3 +46,11 @@ Gremlin.defineStep('argToCall', [Vertex, Pipe], {
 Gremlin.defineStep('callToAssigns', [Vertex, Pipe], {i->
   _().filter{ isCallExpression(it) }.matchParents{ it.type == TYPE_ASSIGN }
 })
+
+
+/**
+   Traverse to enclosing call expression.
+ */
+Gremlin.defineStep('callexpressions', [Vertex, Pipe], {i->
+  _().matchParents{ isCallExpression(it) }
+})
