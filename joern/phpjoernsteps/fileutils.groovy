@@ -21,6 +21,19 @@ Gremlin.defineStep('getAstOfFile', [Vertex, Pipe], { filename ->
 
 
 /**
+   Get all AST roots (of all files)
+
+   This traversal is meant as a starting point when analysing a
+   particular file, to be used as, e.g.,
+
+   g.V().getAllASTRoots()
+ */
+Gremlin.defineStep('getAllASTRoots', [Vertex, Pipe], {
+  _().has(NODE_TYPE,TYPE_FILE).out(FILE_EDGE)
+})
+
+
+/**
    Given a set of vertices, traverse to the enclosing file nodes.
  */
 Gremlin.defineStep('toFile', [Vertex, Pipe], {
@@ -33,7 +46,9 @@ Gremlin.defineStep('toFile', [Vertex, Pipe], {
  */
 Gremlin.defineStep('fileToPath', [Vertex, Pipe], {
   _().filter{ it.type == TYPE_FILE }.sideEffect{ path = it.name }
-  .in(DIRECTORY_EDGE).sideEffect{ path = it.name + "/" + path }.loop(2){it.object.index != 0}
+  .ifThenElse{ it.in(DIRECTORY_EDGE).count() > 0 }
+    { it.in(DIRECTORY_EDGE).sideEffect{ path = it.name + "/" + path }.loop(2){it.object.index != 0} }
+    { it }
   .transform{ path }
 })
 

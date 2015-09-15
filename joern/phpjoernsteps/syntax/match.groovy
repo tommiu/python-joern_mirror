@@ -40,12 +40,6 @@ Gremlin.defineStep('arg', [Vertex, Pipe], { start, i ->
   .children().filter{ it.type == TYPE_ARG_LIST }.ithChildren( i)
 })
 
-// checks whether a given node represents a call expression
-Object.metaClass.isCallExpression = { it ->
-  it.type == TYPE_CALL ||
-  it.type == TYPE_STATIC_CALL ||
-  it.type == TYPE_METHOD_CALL
-}
 
 // gets the function name of a call expression
 Object.metaClass.getFuncName = { it ->

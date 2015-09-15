@@ -2,6 +2,15 @@
    (Optimized) Match-traversals for calls.
 */
 
+
+// checks whether a given node represents a call expression
+Object.metaClass.isCallExpression = { it ->
+  it.type == TYPE_CALL ||
+  it.type == TYPE_STATIC_CALL ||
+  it.type == TYPE_METHOD_CALL
+}
+
+
 /**
    Given a set of call expression nodes, returns the corresponding set
    of argument nodes.
@@ -54,3 +63,13 @@ Gremlin.defineStep('callToAssigns', [Vertex, Pipe], {i->
 Gremlin.defineStep('callexpressions', [Vertex, Pipe], {i->
   _().matchParents{ isCallExpression(it) }
 })
+
+
+/**
+   Traverse to enclosing call expression.
+ */
+Gremlin.defineStep('nameToCall', [Vertex, Pipe], {i->
+  _().parents().parents()
+})
+
+

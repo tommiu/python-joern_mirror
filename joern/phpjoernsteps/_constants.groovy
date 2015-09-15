@@ -1,7 +1,6 @@
+// AST node property keys
+
 Object.metaClass.NODE_INDEX = 'index'
-
-// Node Keys
-
 Object.metaClass.NODE_TYPE = 'type'
 Object.metaClass.NODE_FLAGS = 'flags'
 Object.metaClass.NODE_LINENO = 'lineno'
@@ -10,7 +9,8 @@ Object.metaClass.NODE_ENDLINENO = 'endlineno'
 Object.metaClass.NODE_NAME = 'name'
 Object.metaClass.NODE_DOCCOMMENT = 'doccomment'
 
-// Node Values
+
+// AST node types
 
 Object.metaClass.TYPE_STMT_LIST = 'AST_STMT_LIST' // ...; ...; ...;
 Object.metaClass.TYPE_CALL = 'AST_CALL' // foo()
@@ -24,11 +24,26 @@ Object.metaClass.TYPE_PARAM = 'AST_PARAM' // $p1
 Object.metaClass.TYPE_ASSIGN = 'AST_ASSIGN' // $buzz = true
 Object.metaClass.TYPE_ASSIGN_REF = 'AST_ASSIGN_REF' // $b = &$a
 Object.metaClass.TYPE_ASSIGN_OP = 'AST_ASSIGN_OP' // $x += 3
-Object.metaClass.TYPE_NAME = 'AST_NAME' // variable name
+Object.metaClass.TYPE_NAME = 'AST_NAME' // names (e.g., name of a called function in call expressions)
+Object.metaClass.TYPE_VAR = 'AST_VAR' // $v
+Object.metaClass.TYPE_BINARY_OP = 'AST_BINARY_OP' // e.g., "foo"."bar" or 3+4
+Object.metaClass.TYPE_ENCAPS_LIST = 'AST_ENCAPS_LIST' // e.g., "blah{$var1}buzz $var2 beep"
 // TODO and many more...
+
+
+// AST node flags
+// of AST_ASSIGN.*
+Object.metaClass.FLAG_ASSIGN_CONCAT = 'ASSIGN_CONCAT' // $v .= "foo"
+// of AST_BINARY_OP
+Object.metaClass.FLAG_BINARY_CONCAT = 'BINARY_CONCAT' // "foo"."bar"
+// TODO and many more...
+
+
+// Other (non-AST) node types
 
 Object.metaClass.TYPE_DIRECTORY = 'Directory'
 Object.metaClass.TYPE_FILE = 'File'
+
 
 // Edge types
 
