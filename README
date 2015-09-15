@@ -1,9 +1,11 @@
 For the tests, I currently use the agavi repository (rev 06c53792ec0cf1d2511723505bb3493e93e31355)
 
-From PHPJoern:
-* clone https://github.com/agavi/agavi (or use get_test_repos.sh)
-* checkout rev 06c53792ec0cf1d2511723505bb3493e93e31355
-* parse the agavi repo
-* import it into Neo4J
-* start Neo4J
-* test away
+To perform the tests:
+(1) Find the files testing/phpresources/{nodes,rels}.csv
+(2) Import them into Neo4J using something like this:
+$ JEXP_HOME=/wherever/your/batch/import/installation/for/neo4j_2.1/is
+$ HEAP=6G; java -classpath "$JEXP_HOME/lib/*" -Xmx$HEAP -Xms$HEAP -Dfile.encoding=UTF-8 org.neo4j.batchimport.Importer conf/batch.properties graph.db nodes.csv rels.csv
+(3) start Neo4J
+$ bin/neo4j console
+(4) test away:
+$ python testing/test.py 
