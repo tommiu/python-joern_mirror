@@ -16,6 +16,7 @@ Object.metaClass.TYPE_STMT_LIST = 'AST_STMT_LIST' // ...; ...; ...;
 Object.metaClass.TYPE_CALL = 'AST_CALL' // foo()
 Object.metaClass.TYPE_STATIC_CALL = 'AST_STATIC_CALL' // bla::foo()
 Object.metaClass.TYPE_METHOD_CALL = 'AST_METHOD_CALL' // $bla->foo()
+Object.metaClass.TYPE_PROP = 'AST_PROP' // e.g., $bla->foo
 Object.metaClass.TYPE_FUNC_DECL = 'AST_FUNC_DECL' // function foo() {}
 Object.metaClass.TYPE_METHOD = 'AST_METHOD' // class bla { ... function foo() {} ... }
 Object.metaClass.TYPE_ARG_LIST = 'AST_ARG_LIST' // foo( $a1, $a2, $a3)
@@ -43,6 +44,8 @@ Object.metaClass.FLAG_BINARY_CONCAT = 'BINARY_CONCAT' // "foo"."bar"
 
 Object.metaClass.TYPE_DIRECTORY = 'Directory'
 Object.metaClass.TYPE_FILE = 'File'
+
+Object.metaClass.TYPE_STRING = 'string'
 
 
 // Edge types
