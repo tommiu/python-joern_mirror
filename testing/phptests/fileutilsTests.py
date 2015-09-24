@@ -8,7 +8,7 @@ class FileutilsTests(PythonJoernTests):
         query = """g.V()
                    .getAstOfFile("AgaviArrayPathDefinition.class.php")"""
         result = self.j.runGremlinQuery(query)
-        expect = [Node(childnum=0,index=12883,lineno=1,type="AST_STMT_LIST")]
+        expect = [Node(childnum=0,id=12883,lineno=1,type="AST_STMT_LIST")]
         self.assertEquals(result, expect)
 
     def testToFile(self):
@@ -17,7 +17,7 @@ class FileutilsTests(PythonJoernTests):
         query = """g.V().getAstOfFile("AgaviArrayPathDefinition.class.php").astNodes().next()
                    .toFile()"""
         result = self.j.runGremlinQuery(query)
-        expect = [Node(index=12882,name="AgaviArrayPathDefinition.class.php",type="File")]
+        expect = [Node(id=12882,name="AgaviArrayPathDefinition.class.php",type="File")]
         self.assertEquals(result, expect)
 
     def testFileToPath(self):

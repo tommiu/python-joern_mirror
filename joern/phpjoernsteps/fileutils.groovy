@@ -47,7 +47,7 @@ Gremlin.defineStep('toFile', [Vertex, Pipe], {
 Gremlin.defineStep('fileToPath', [Vertex, Pipe], {
   _().filter{ it.type == TYPE_FILE }.sideEffect{ path = it.name }
   .ifThenElse{ it.in(DIRECTORY_EDGE).count() > 0 }
-    { it.in(DIRECTORY_EDGE).sideEffect{ path = it.name + "/" + path }.loop(2){it.object.index != 0} }
+    { it.in(DIRECTORY_EDGE).sideEffect{ path = it.name + "/" + path }.loop(2){it.object.id != 0} }
     { it }
   .transform{ path }
 })

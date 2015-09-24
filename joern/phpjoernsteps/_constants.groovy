@@ -1,10 +1,11 @@
 // AST node property keys
 
-Object.metaClass.NODE_INDEX = 'index'
+Object.metaClass.NODE_INDEX = 'id'
 Object.metaClass.NODE_TYPE = 'type'
 Object.metaClass.NODE_FLAGS = 'flags'
 Object.metaClass.NODE_LINENO = 'lineno'
 Object.metaClass.NODE_CODE = 'code'
+Object.metaClass.NODE_FUNCID = 'funcid'
 Object.metaClass.NODE_ENDLINENO = 'endlineno'
 Object.metaClass.NODE_NAME = 'name'
 Object.metaClass.NODE_DOCCOMMENT = 'doccomment'

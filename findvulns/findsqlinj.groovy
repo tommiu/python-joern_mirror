@@ -105,6 +105,7 @@ TODO:
 =====
 - what other ways to do SQL queries?
 -> have a look at mysqli...
+-> the PDO abstraction thing...
 -> think of more ways
 
 - there's probably a rather small bug in the above script that may
