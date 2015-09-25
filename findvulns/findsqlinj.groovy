@@ -11,11 +11,11 @@ sql_query_funcs = ["mysql_query", "pg_query", "sqlite_query"]
 argument_type_filter = [TYPE_STRING, TYPE_CALL, TYPE_METHOD_CALL, TYPE_PROP]
 
 def warning( id, type, filename, lineno) {
-  "In file " + filename + ": line " + lineno + " potentially dangerous (node id " + id + ", type " + type + ")"
+  "findsqlinj: In file " + filename + ": line " + lineno + " potentially dangerous (node id " + id + ", type " + type + ")"
 }
 
 def unexpected( id, type, filename, lineno) {
-  "Unexpected first argument to SQL query call in " + filename + ", line " + lineno + " (node id " + id + ", type " + type + ")"
+  "findsqlinj: Unexpected first argument to SQL query call in " + filename + ", line " + lineno + " (node id " + id + ", type " + type + ")"
 }
 
 g.V()
@@ -29,7 +29,7 @@ g.V()
 // is the argument itself already a string concatenation or a string that contains variables?
 .ifThenElse{ (it.type == TYPE_BINARY_OP && it.flags.contains(FLAG_BINARY_CONCAT)) || it.type == TYPE_ENCAPS_LIST } {
   // if yes, output a warning, no questions asked
-  it.transform{ warning(it.index, it.type, it.toFile().fileToPath().next(), it.lineno) }
+  it.transform{ warning(it.id, it.type, it.toFile().fileToPath().next(), it.lineno) }
  }
  // otherwise, is it a variable?
  {
@@ -52,12 +52,12 @@ g.V()
      }
      // finally, give a nice human-readable output
      .back('arg')
-     .transform{ warning(it.index, it.type, it.toFile().fileToPath().next(), it.lineno) }
+     .transform{ warning(it.id, it.type, it.toFile().fileToPath().next(), it.lineno) }
    }
    // otherwise, we encountered a first argument of a type we did not expect --
    // have a closer look!
    {
-     it.transform{ unexpected(it.index, it.type, it.toFile().fileToPath().next(), it.lineno) }
+     it.transform{ unexpected(it.id, it.type, it.toFile().fileToPath().next(), it.lineno) }
    }
  }
 

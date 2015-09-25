@@ -30,6 +30,7 @@ Object.metaClass.TYPE_NAME = 'AST_NAME' // names (e.g., name of a called functio
 Object.metaClass.TYPE_VAR = 'AST_VAR' // $v
 Object.metaClass.TYPE_BINARY_OP = 'AST_BINARY_OP' // e.g., "foo"."bar" or 3+4
 Object.metaClass.TYPE_ENCAPS_LIST = 'AST_ENCAPS_LIST' // e.g., "blah{$var1}buzz $var2 beep"
+Object.metaClass.TYPE_INCLUDE_OR_EVAL = 'AST_INCLUDE_OR_EVAL' // eval, include, require
 // TODO and many more...
 
 
@@ -38,6 +39,13 @@ Object.metaClass.TYPE_ENCAPS_LIST = 'AST_ENCAPS_LIST' // e.g., "blah{$var1}buzz 
 Object.metaClass.FLAG_ASSIGN_CONCAT = 'ASSIGN_CONCAT' // $v .= "foo"
 // of AST_BINARY_OP
 Object.metaClass.FLAG_BINARY_CONCAT = 'BINARY_CONCAT' // "foo"."bar"
+// of AST_INCLUDE_OR_EVAL
+Object.metaClass.FLAG_EXEC_EVAL = 'EXEC_EVAL' // eval("...")
+Object.metaClass.FLAG_EXEC_INCLUDE = 'EXEC_INCLUDE' // include "..."
+Object.metaClass.FLAG_EXEC_INCLUDE_ONCE = 'EXEC_INCLUDE_ONCE' // include_once "..."
+Object.metaClass.FLAG_EXEC_REQUIRE = 'EXEC_REQUIRE' // require "..."
+Object.metaClass.FLAG_EXEC_REQUIRE_ONCE = 'EXEC_REQUIRE_ONCE' // require_once "..."
+
 // TODO and many more...
 
 
