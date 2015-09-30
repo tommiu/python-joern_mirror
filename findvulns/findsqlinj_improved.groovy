@@ -4,7 +4,7 @@
   is used to perform the query.
  */
 
-attacker_sources = ["_GET", "_POST", "_COOKIE", "_REQUEST"]
+attacker_sources = ["_GET", "_POST", "_COOKIE", "_REQUEST", "_ENV", "HTTP_ENV_VARS"]
 
 sql_query_funcs = ["mysql_query", "pg_query", "sqlite_query"]
 
@@ -26,9 +26,9 @@ g.V()
 // variables within a string concatenation or an encapsulated list)
 .match{ it.type == TYPE_VAR }
 // save the variable node
-.sideEffect{ var = it }
+.sideEffect{ var = it; varname = var.varToName().next(); }
 // is one of these variables already among the attacker sources?
-.ifThenElse{ attacker_sources.contains(var.varToName().next()) }{
+.ifThenElse{ attacker_sources.contains(varname) }{
    // if yes, warning
    it.transform{ warning(it.id, it.type, it.toFile().fileToPath().next(), it.lineno) }
  }
@@ -36,7 +36,7 @@ g.V()
    // if not, traverse to enclosing function or file statements node...
    it.fileOrFunctionStmts()
    // ..and find assignments whose left side is the saved variable name...
-   .match{ isAssignment(it) && it.lval().varToName().next() == var.varToName().next() }
+   .match{ isAssignment(it) && it.lval().varToName().next() == varname }
    // ...and whose right side contains one of the attacker sources
    .rval().match{ it.type == TYPE_VAR && attacker_sources.contains(it.varToName().next()) }
    // for the results, output a warning
