@@ -20,6 +20,6 @@ Gremlin.defineStep('lval', [Vertex,Pipe], {
 /**
    Traverse to right side of an assignment.
 */
-Gremlin.defineStep('rval', [Vertex,Pipe], {o->
+Gremlin.defineStep('rval', [Vertex,Pipe], {
   _().filter{ isAssignment(it) }.ithChildren(1)
 });
